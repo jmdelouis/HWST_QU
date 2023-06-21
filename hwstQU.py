@@ -430,9 +430,9 @@ def main():
 
             data['res']={}
             data['res']['bias']=bias
-            ref.save('TMP/MOD_%s_%d'%(data['outname'],data['Itt']))
-            bias.save('TMP/BIAS_%s_%d'%(data['outname'],data['Itt']))
-            data['ref'].save('TMP/REF_%s_%d'%(data['outname'],data['Itt']))
+            ref.save('results/MOD_%s_%d'%(data['outname'],data['Itt']))
+            bias.save('results/BIAS_%s_%d'%(data['outname'],data['Itt']))
+            data['ref'].save('results/REF_%s_%d'%(data['outname'],data['Itt']))
 
             alpha=s2rs1[data['Itt']]
             print('INIT LOSS ',data['k'],data['Itt'],alpha)
