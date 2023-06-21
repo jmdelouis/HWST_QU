@@ -1,0 +1,27 @@
+#!/bin/bash -l
+#SBATCH --job-name=hwst
+#SBATCH --account=ens
+#SBATCH --cluster=gpu
+#SBATCH --partition=ens
+#SBATCH --qos=gpu_ens_normal
+#SBATCH --nodes=1
+#SBATCH -w node0298
+#SBATCH --gpus-per-node=2
+#SBATCH --time=12:00:00
+
+cd /obs/jdelouis/FDEMO/FOSCAT_DEMO
+
+#OpenMP settings:
+#export OMP_NUM_THREADS=1
+#export OMP_PLACES=threads
+#export OMP_PROC_BIND=spread
+
+# IMPORTANT NOTE : last "/" should be written "/travail/jdelouis/heal_cnn/" and not "/travail/jdelouis/heal_cnn"
+export LD_LIBRARY_PATH=/shared/apps/cudnn/8.1.0-11.2/cuda/lib64:$LD_LIBRARY_PATH
+export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/obs/jdelouis/.local/lib/
+export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/obs/jdelouis/.local/lib/python3.9/site-packages/tensorrt/
+
+#python3.9 hwstQU.py -n=64 -s=5000 -b=10 -o=hwstL -l=50 &> /obs/jdelouis/FDEMO/FOSCAT_DEMO/hwstL64_gpu.log 
+python3.9 hwstQU.py -n=256 -s=5000 -b=10 -l=300 -o=hwstB &> /obs/jdelouis/FDEMO/FOSCAT_DEMO/hwstB256_gpu.log 
+
+exit 0
